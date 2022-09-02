@@ -64,11 +64,15 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label email="picture">Picture</label>
-                                    <button type="button" class="btn btn-primary btn-block" style="height: 42px;" data-toggle="modal" data-remote="" data-target="#upload_modal"  data-whatever=''>Attachment</button>
+                                    <div id="picture" style="display: none;">
+                                        <input type="text" class="form-control picture" disabled required>
+                                        <input type="hidden" class="form-control picture" name="picture" required>
+                                    </div>
+                                    <button type="button" class="btn btn-primary btn-block" style="height: 42px;" data-toggle="modal" data-remote="" data-target="#upload_modal"  data-whatever='' id="attachment">Attachment</button>
                                 </div>
                                 <div class="col-sm-12">
                                     <label email="description">Description</label>
-                                    <textarea class="form-control" name="description" id="description" rows="10" style="height: 100px;"></textarea>
+                                    <textarea class="form-control summernote" name="description" id="description"></textarea>
                                     <div class="invalid-feedback">
                                         Description cannot be empty
                                     </div>
@@ -88,32 +92,34 @@
                     <h5 class="m-0 font-weight-bold text-primary">Upload</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <label for="picture">Upload Picture</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="picture" name="picture" accept=".png" onchange="handleValidateAttachment(this);" required>
-                                <label class="custom-file-label" id="label_picture" for="picture">Attach File</label>
+                <form method="post" action="upload" enctype="multipart/form-data" id="form_upload">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="picture">Upload Picture</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="picture" name="picture" accept=".png" required>
+                                    <label class="custom-file-label" id="label_picture" for="picture">Attach File</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <small class="form-text text-muted">Format dokumen .png</small>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" id="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                <small class="form-text text-muted">Format dokumen .png</small>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" id="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">    
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="action" id="action" value="Submit">Upload</button>
-                </div>
+                    <div class="modal-footer">    
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" name="action" id="btn-upload" value="Submit">Upload</button>
+                    </div>
+                <?= form_close() ?>
             </div>   
         </div>
     </div>

@@ -34,16 +34,16 @@ class Products extends ResourceController
         $status = 200;
         $error = null;
 
-        $supplier = $this->model->getSupplierById($id);
+        $product = $this->model->getProductById($id);
         
-        if(empty($supplier)) {
+        if(empty($product)) {
             $status = 204;
         }
         
         $response = [
             'status' => $status,
             'error' => $error,
-            'supplier' => $supplier
+            'product' => $product
         ];
 
         return $this->respond($response);
@@ -55,44 +55,53 @@ class Products extends ResourceController
         $error = null;
         $message = '';
         
-        $validatePayloadSupplier = [
+        $validatePayloadProduct = [
             'name' => [
                 'label' => 'Name', 
-                'rules' => 'required|min_length[3]|max_length[55]|is_unique[suppliers.name]'
+                'rules' => 'required|min_length[3]|max_length[55]|is_unique[products.name]'
             ],
-            'email' => [
-                'label' => 'Email', 
-                'rules' => 'required|valid_email|is_unique[suppliers.email]'
+            'unit' => [
+                'label' => 'Unit', 
+                'rules' => 'required'
             ],
-            'address' => [
-                'label' => 'Address', 
-                'rules' => 'required|max_length[85]'
+            'category' => [
+                'label' => 'Category', 
+                'rules' => 'required'
+            ],
+            'supplier' => [
+                'label' => 'Supplier', 
+                'rules' => 'required'
+            ],
+            'price' => [
+                'label' => 'Price', 
+                'rules' => 'required'
+            ],
+            'picture' => [
+                'label' => 'Picture', 
+                'rules' => 'required'
             ],
             'description' => [
                 'label' => 'Description',
-                'rules' => 'required|max_length[55]'
-            ],
-            'phone' => [
-                'label' => 'Phone',
-                'rules' => 'required|max_length[13]'
+                'rules' => 'required'
             ]
         ];
 
-        $this->validation->setRules($validatePayloadSupplier);
+        $this->validation->setRules($validatePayloadProduct);
 
         if($this->validation->withRequest($this->request)->run() === TRUE) {
             $payload = $this->request->getPost();
 
-            $supplier = [
+            $product = [
                 'name' => $payload['name'],
-                'email' => $payload['email'],
-                'address' => $payload['address'],
+                'unit_id' => $payload['unit'],
+                'category_id' => $payload['category'],
+                'supplier_id' => $payload['supplier'],
+                'price' => $payload['price'],
+                'picture' => $payload['picture'],
                 'description' => $payload['description'],
-                'phone' => $payload['phone'],
             ];
     
-    
-            $modelResponse = $this->model->addSupplier($supplier);
+            $modelResponse = $this->model->addProduct($product);
     
             if($modelResponse) {
                 $message = 'Data Saved Successfully';
@@ -103,11 +112,11 @@ class Products extends ResourceController
         } else {
             $error = $this->validation->getErrors();
         }
-        
+
         $response = [
             'status' => $status,
             'error' => $error,
-            'message' => $message
+            'message' => $message,
         ];
 
         return $this->respond($response);
@@ -119,36 +128,40 @@ class Products extends ResourceController
         $error = null;
         $message = '';
         
-        $validatePayloadSupplier = [
+        $validatePayloadProduct = [
             'name' => [
                 'label' => 'Name', 
-                'rules' => 'min_length[3]|max_length[55]'
+                'rules' => 'required|min_length[3]|max_length[55]'
             ],
-            'email' => [
-                'label' => 'Email', 
-                'rules' => 'valid_email'
+            'unit_id' => [
+                'label' => 'Unit', 
+                'rules' => 'required'
             ],
-            'address' => [
-                'label' => 'Address', 
-                'rules' => 'max_length[85]'
+            'category_id' => [
+                'label' => 'Category', 
+                'rules' => 'required'
+            ],
+            'supplier_id' => [
+                'label' => 'Supplier', 
+                'rules' => 'required'
+            ],
+            'price' => [
+                'label' => 'Price', 
+                'rules' => 'required'
             ],
             'description' => [
                 'label' => 'Description',
-                'rules' => 'max_length[55]'
-            ],
-            'phone' => [
-                'label' => 'Phone',
-                'rules' => 'max_length[13]'
+                'rules' => 'required'
             ]
         ];
 
-        $this->validation->setRules($validatePayloadSupplier);
+        $this->validation->setRules($validatePayloadProduct);
 
         if($this->validation->withRequest($this->request)->run() === TRUE) {
-            $payloadSupplier = $this->request->getRawInput();
-            $payloadSupplier['updated_at'] = date('Y-m-d H:i:s');
+            $payloadProduct = $this->request->getRawInput();
+            $payloadProduct['updated_at'] = date('Y-m-d H:i:s');
 
-            $modelResponse = $this->model->updateSupplier($id, $payloadSupplier);
+            $modelResponse = $this->model->updateProduct($id, $payloadProduct);
     
             if($modelResponse) {
                 $message = 'Data Updated Successfully';
@@ -170,7 +183,7 @@ class Products extends ResourceController
 
     public function delete($id = null)
     {
-        $modelResponse = $this->model->deleteSupplier($id);
+        $modelResponse = $this->model->deleteProduct($id);
     
         if($modelResponse) {
             $message = 'Data Deleted Successfully';

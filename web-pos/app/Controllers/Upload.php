@@ -9,22 +9,22 @@ class Upload extends BaseController
     {
 
         $picture = [];
-        $postData = $_FILES;
+        $errorMessage = '';
 
         try
         {
             $this->validation->setRules([
-                'picture' => 'uploaded[file]|mime_in[png]|max_size[document, 5120] '
+                'picture' => 'uploaded[picture]|mime_in[picture,image/png]|max_size[picture, 5120] '
             ]);
 
             if($this->validation->withRequest($this->request)->run() === TRUE) {
                 $file = $this->request->getFile('picture');
 
                 $documentRootPath = $_SERVER["DOCUMENT_ROOT"];
-                $documentPath = "/upload";
+                $documentPath = "/product";
 
                 if($file->isValid() && ! $file->hasMoved()) {
-                    $upload = $file->move("${documentRootPath}/assets/${documentPath}");
+                    $upload = $file->move("${documentRootPath}/upload/${documentPath}");
 
                     if(!$upload) {
                         $errorMessage = 'Failed to upload file';
@@ -33,11 +33,14 @@ class Upload extends BaseController
                     $errorMessage = $file->getErrorString().'('.$file->getError().')';
                 }
 
-                $fileName = $file->getName();
+				if($errorMessage === '') {
+					$fileName = $file->getName();
+	
+					$picture['file_name'] = $fileName;
+					$picture['picture_path'] = $documentPath;
+					$picture['upload_date'] = date('Y-m-d H:i:s');
+				}
 
-                $picture['file_name'] = $fileName;
-                $picture['picture_path'] = $documentPath;
-                $picture['upload_date'] = $this->appHelper->getCurrentDatetime();
             } else {
                 $errorMessage = $this->validation->getErrors(); 
             }

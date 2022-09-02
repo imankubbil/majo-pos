@@ -11,25 +11,31 @@ class ProductModel extends Model
     protected $allowedFields    = [];
 
     public function getProducts() {
-        $query = "SELECT * FROM {$this->table}";
+        $query = "SELECT a.*, b.name unit_name, c.name category_name, d.name supplier_name
+                    FROM {$this->table} a
+                    JOIN units b ON a.unit_id = b.id
+                    JOIN categories c ON a.category_id = c.id
+                    JOIN suppliers d ON a.supplier_id = d.id
+                 ";
         $result = $this->db->query($query);
         
         return $result->getResultObject();
     }
 
     public function getProductById($id) {
-        $query = "SELECT * FROM {$this->table} WHERE id = ?";
+        $query = "SELECT a.*, b.name unit_name, c.name category_name, d.name supplier_name
+                    FROM {$this->table} a
+                    JOIN units b ON a.unit_id = b.id
+                    JOIN categories c ON a.category_id = c.id
+                    JOIN suppliers d ON a.supplier_id = d.id 
+                  WHERE a.id = ?";
         $result = $this->db->query($query, [$id]);
         
         return $result->getRow();
     }
 
     public function addProduct($product) {
-        $query = "INSERT INTO {$this->table}(name, email, address, description, phone, created_at, updated_at)
-                    VALUES ('{$product['name']}', '{$product['email']}', '{$product['address']}', '{$product['description']}', '{$product['phone']}', NOW(), NOW())";
-
-        $result = $this->db->query($query);
-        return $result;
+       return $this->db->table($this->table)->insert($product);
     }
 
     public function updateProduct($id, $product) {

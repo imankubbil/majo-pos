@@ -24,14 +24,20 @@
 					<button class="close" data-dismiss="alert">x</button>
                     <?php 
                         $name = (isset(session()->getFlashdata('error')['name'])) ? session()->getFlashdata('error')['name'] : '';
-                        $email = (isset(session()->getFlashdata('error')['email'])) ? session()->getFlashdata('error')['email'] : '';
-                        $address = (isset(session()->getFlashdata('error')['address'])) ? session()->getFlashdata('error')['address'] : '';
+                        $unit = (isset(session()->getFlashdata('error')['unit'])) ? session()->getFlashdata('error')['unit'] : '';
+                        $category = (isset(session()->getFlashdata('error')['category'])) ? session()->getFlashdata('error')['category'] : '';
+                        $supplier = (isset(session()->getFlashdata('error')['supplier'])) ? session()->getFlashdata('error')['supplier'] : '';
+                        $price = (isset(session()->getFlashdata('error')['price'])) ? session()->getFlashdata('error')['price'] : '';
+                        $picture = (isset(session()->getFlashdata('error')['picture'])) ? session()->getFlashdata('error')['picture'] : '';
                         $description = (isset(session()->getFlashdata('error')['description'])) ? session()->getFlashdata('error')['description'] : '';
                         $product = (isset(session()->getFlashdata('error')['product'])) ? session()->getFlashdata('error')['product'] : '';
                     ?>
                     <?php if($name !== '') echo $name; ?>
-                    <?php if($email !== '') echo "</br>".$email; ?>
-                    <?php if($address !== '') echo "</br>".$address; ?>
+                    <?php if($unit !== '') echo "</br>".$unit; ?>
+                    <?php if($category !== '') echo "</br>".$category; ?>
+                    <?php if($supplier !== '') echo "</br>".$supplier; ?>
+                    <?php if($price !== '') echo "</br>".$price; ?>
+                    <?php if($picture !== '') echo "</br>".$picture; ?>
                     <?php if($description !== '') echo "</br>".$description; ?>
                     <?php if($product !== '') echo "</br>".$product; ?>
 				</div>
@@ -65,12 +71,11 @@
 										<tr>
 											<th scope="row"><?= (int)$key + 1?></th>
 											<td><?= $value['name']?></td>
-											<td><?= $value['email']?></td>
 											<td><?= $value['description']?></td>
 											<td><?= $value['price']?></td>
-											<td><?= $value['unit_id']?></td>
-											<td><?= $value['category_id']?></td>
-											<td><?= $value['spplier_id']?></td>
+											<td><?= $value['unit_name']?></td>
+											<td><?= $value['category_name']?></td>
+											<td><?= $value['supplier_name']?></td>
 											<td><?= $value['created_at']?></td>
 											<td><?= $value['updated_at']?></td>
 											<td>

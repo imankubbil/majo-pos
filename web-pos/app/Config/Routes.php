@@ -48,6 +48,7 @@ $routes->resource('unit', ['controller' => 'Unit']);
 $routes->resource('category', ['controller' => 'Category']);
 $routes->resource('product', ['controller' => 'Product']);
 $routes->post('product/upload', 'Upload::index');
+$routes->get('home/listproduct', 'Product::listProduct');
 
 
 /*

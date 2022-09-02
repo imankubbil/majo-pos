@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="<?=base_url('/assets/bootstrap/dist/css/bootstrap.min.css')?>">
     <link rel="stylesheet" href="<?=base_url('/assets/@fortawesome/fontawesome-free/css/all.css')?>">
     <link rel="stylesheet" href="<?=base_url()?>/assets/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>/assets/summernote/dist/summernote-bs4.css">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="<?=base_url('/assets/css/style.css')?>">
@@ -31,10 +32,13 @@
     </div>
 
     <!-- General JS Scripts -->
-    <script src="<?=base_url('/assets/jquery/dist/jquery.min.js')?>"></script>
-    <script src="<?=base_url('/assets/bootstrap/dist/js/bootstrap.min.js')?>"></script>
-    <script src="<?=base_url('/assets/jquery.nicescroll/dist/jquery.nicescroll.min.js')?>"></script>
+    <script src="<?=base_url()?>/assets/jquery/dist/jquery.min.js"></script>
+    <script src="<?=base_url()?>/assets/popper/popper.js"></script>
+    <script src="<?=base_url()?>/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="<?=base_url()?>/assets/jquery.nicescroll/dist/jquery.nicescroll.min.js"></script>
+    <script src="<?=base_url()?>/assets/jquery/jquery.form.min.js"></script>
     <script src="<?=base_url()?>/assets/select2/dist/js/select2.full.min.js"></script>
+    <script src="<?=base_url()?>/assets/summernote/dist/summernote-bs4.js"></script>
     <script src="<?=base_url('/assets/moment/min/moment.min.js')?>"></script>
     <script src="<?=base_url('/assets/js/stisla.js')?>"></script>
     
@@ -86,24 +90,11 @@
 
             if(response.code == "00")
             {
-              var document_path = response.data.document_path;
               var file_name = response.data.file_name;
 
-              var data = {};
-              data['document_path'] = document_path;
-              data['file_name'] = file_name;
-              data['file_type'] = file_type;
-              
-              var htmlRow = '<tr>' +
-                                '<td>' + file_name + '</td>' +
-                                '<td>' + file_type + '</td>' +
-                                '<td>' +
-                                  '<button type="button" class="btn btn-danger btn-sm" onclick="handleRemoveAttahcment(this);">Remove</button>' +
-                                  '<input type="hidden" name="attachment[]" value="' + encodeURIComponent(JSON.stringify(data)) + '">' +
-                                '</td>' +
-                              '</tr>';
-
-              $("#attachment").append(htmlRow);
+              $("#attachment").hide();
+              $(".picture").val(file_name)
+              $("#picture").show();
 
               $('#upload_modal').modal('hide');
             }
