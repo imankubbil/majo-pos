@@ -11,10 +11,10 @@ POS ( point of sales ) built with Codeigniter 4
 ![Table Structure](https://github.com/imankubbil/majo-pos/blob/master/document/ERD.png)
 
 ### Documention API
-`Insomnia (import file)` : [Link](https://github.com/imankubbil/majo-pos/tree/dev/document/collection-insomnia)
+`Insomnia (import file)` : [Link](https://github.com/imankubbil/majo-pos/blob/master/document/collection-insomnia)
 
 ### Documention SQL
-`Sql file (import file)` : [Link](https://github.com/imankubbil/majo-pos/raw/dev/document/posmajo.sql)
+`Sql file (import file)` : [Link](https://github.com/imankubbil/majo-pos/blob/master/document/posmajo.sql)
 
 ### After Clone
 - Frontend
