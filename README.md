@@ -8,7 +8,7 @@ POS ( point of sales ) built with Codeigniter 4
 `server-pos`
 
 ### Table Structure
-![Table Structure](https://github.com/imankubbil/majo-pos/raw/dev/document/ERD.png)
+![Table Structure](https://github.com/imankubbil/majo-pos/blob/master/document/ERD.png)
 
 ### Documention API
 `Insomnia (import file)` : [Link](https://github.com/imankubbil/majo-pos/tree/dev/document/collection-insomnia)
